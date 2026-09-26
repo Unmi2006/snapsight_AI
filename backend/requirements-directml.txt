@@ -1,0 +1,18 @@
+# Install on top of requirements.txt, on Windows only.
+# NOTE: onnxruntime-directml REPLACES the plain 'onnxruntime' package --
+# uninstall onnxruntime first if you already installed requirements.txt,
+# or use a fresh venv. Both packages register the 'onnxruntime' import
+# name and will conflict if both are installed.
+#
+#   pip uninstall onnxruntime -y
+#   pip install onnxruntime-directml>=1.22
+
+onnxruntime-directml>=1.22
+
+# Phase 2 LLM equivalent -- same conflict rule applies to the GenAI
+# packages (onnxruntime-genai vs onnxruntime-genai-directml share an
+# import name):
+#   pip uninstall onnxruntime-genai -y
+#   pip install onnxruntime-genai-directml>=0.4.0
+
+onnxruntime-genai-directml>=0.4.0

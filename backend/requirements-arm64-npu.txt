@@ -1,0 +1,19 @@
+# Install ONLY on native ARM64 Python 3.11.x running on the actual
+# Snapdragon X Elite/Plus device. Do NOT use x64 Python under emulation --
+# the QNN execution provider will not load.
+#
+#   pip uninstall onnxruntime onnxruntime-directml -y
+#   pip install onnxruntime==1.26.0
+#   pip install onnxruntime-qnn==2.5.0
+#   pip install qai_hub_models
+
+onnxruntime==1.26.0
+onnxruntime-qnn==2.5.0
+qai_hub_models
+
+# Phase 2 LLM on QNN: check scripts/export_llm_model.py before assuming a
+# QNN build of onnxruntime-genai exists for your release -- it's newer and
+# less standardized than the raw onnxruntime-qnn package above. If one
+# exists for you: pip install it here. If not, DirectML GPU (see
+# requirements-directml.txt) is the honest fallback story for the LLM step
+# specifically -- don't claim NPU for it if it isn't verified.

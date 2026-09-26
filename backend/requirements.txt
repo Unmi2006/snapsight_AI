@@ -1,0 +1,47 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.8
+python-multipart>=0.0.9
+psutil>=6.0
+onnxruntime>=1.22
+onnx>=1.16
+numpy>=1.26,<2.0
+opencv-python-headless>=4.10
+pillow>=10.4
+pypdf>=4.3
+pytesseract>=0.3.10
+pdf2image>=1.17
+
+# Phase 2 -- local LLM reasoning (Study Vision "ask AI" step). CPU variant;
+# this is safe to have installed alongside plain onnxruntime (different
+# import name, unlike the DirectML pair below). See
+# scripts/export_llm_model.py to get an actual model folder in place --
+# without one, Study Vision Mode still runs OCR, it just reports the LLM
+# step as unavailable instead of faking a response.
+onnxruntime-genai>=0.4.0
+
+# Phase 3 -- Voice Assistant (STT + TTS).
+# Always-available CPU fallbacks (zero model downloads, exactly like
+# pytesseract above): PocketSphinx ships its own default English acoustic
+# model inside the pip wheel; pyttsx3 wraps whatever native offline TTS
+# engine already exists on the OS (espeak-ng on Linux -- install with
+# `apt install espeak-ng` if pyttsx3 reports no voices).
+SpeechRecognition>=3.10
+pocketsphinx>=5.0
+pyttsx3>=2.90
+
+# NPU/GPU-capable ONNX paths (optional until you run
+# scripts/export_stt_model.py / export_tts_model.py):
+#   transformers + librosa + soundfile -- Whisper tokenizer + mel spectrogram
+#   piper-phonemize -- espeak-ng-based grapheme-to-phoneme for Piper TTS
+# Left out of the base install (not required for the app to run/boot) --
+# uncomment once you've exported the corresponding model:
+# transformers>=4.40
+# librosa>=0.10
+# soundfile>=0.12
+# piper-phonemize>=1.1
+
+# Decoding whatever audio format the browser's MediaRecorder produces
+# (webm/opus, ogg/opus) into PCM -- requires the ffmpeg binary on PATH,
+# same external-dependency category as poppler-utils above.
+pydub>=0.25
